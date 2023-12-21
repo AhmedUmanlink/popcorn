@@ -1,0 +1,154 @@
+<div class="movie-card" *ngIf="movieDetails">
+  
+    <div class="container">
+      
+      <a href={{movieDetails.homepage}} target="_blank"><img [src]="'https://image.tmdb.org/t/p/w300/'+movieDetails.poster_path" alt="cover" class="cover" /></a>
+          
+<div class="hero" [style.--background-image]="'url(https://image.tmdb.org/t/p/w500/' + movieDetails.backdrop_path+')'">
+              
+        <div class="details">
+        
+          <div class="title1">{{movieDetails.original_title}} <span>{{movieDetails.original_language}}</span></div>
+  
+          <div class="title2">{{movieDetails.tagline}}</div>    
+          
+          <fieldset class="rating">
+            <i class="fa-solid fa-star" style="color: #e7b708;"></i>{{movieDetails.vote_average}}
+        </fieldset>
+          
+          <span class="likes">popularity {{movieDetails.popularity}}</span>
+          
+        </div> <!-- end details -->
+        
+      </div> <!-- end hero -->
+      
+      <div class="description">
+        
+        <div class="column1">
+          <span class="tag"  *ngFor="let genre of movieDetails.genres">{{genre.name}}</span>
+        </div> <!-- end column1 -->
+        
+        <div class="column2">
+          
+          <p>{{movieDetails.overview}}...<a target="_blank" href={{movieDetails.homepage}}>learn more</a></p>
+          
+         
+          
+          
+        </div> <!-- end column2 -->
+      </div> <!-- end description -->
+      <fieldset class="reviews videos" *ngIf="movieVideos">
+        <legend (click)="toggleSection('trailers')">Trailers <i class="fa-solid fa-circle-chevron-up"  *ngIf="section.trailers"></i>  <i class="fa-solid fa-circle-chevron-down"  *ngIf="!section.trailers"></i></legend>
+
+          <div class="csslider infinity" id="slider1" *ngIf="section.trailers">
+            <input *ngFor="let trailer of movieVideos; let i = index" type="radio" name="slides" [checked]="i === 0" id="slides_{{i + 1}}" />
+            <ul>
+              <li *ngFor="let trailer of movieVideos; let i = index">
+            
+                  <iframe width="100%" height="400px" [src]="getVideoUrl(trailer.key)" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+               
+              </li>
+            </ul>
+            <div class="arrows">
+              <label *ngFor="let trailer of movieVideos; let i = index" [for]="'slides_' + (i + 1)"></label>
+              <label class="goto-first" for="slides_1"></label>
+              <label class="goto-last" [for]="'slides_' + movieVideos.length"></label>
+            </div>
+            <div class="navigation">
+              <div>
+                <label *ngFor="let trailer of movieVideos; let i = index" [for]="'slides_' + (i + 1)"></label>
+              </div>
+            </div>
+          </div>
+      </fieldset>
+      
+   
+      
+
+      <fieldset  class="reviews" *ngIf="reviews && reviews.length>0">
+        <legend (click)="toggleSection('reviews')">Reviews <i class="fa-solid fa-circle-chevron-up"  *ngIf="section.reviews"></i>  <i class="fa-solid fa-circle-chevron-down"  *ngIf="!section.reviews"></i></legend>
+<ng-container *ngIf="section.reviews">
+  <ul class="fa-ul twocolumn" *ngFor="let rev of reviews" >
+    <li>
+      <img [src]="'https://image.tmdb.org/t/p/w500/'+rev.author_details.avatar_path" class="avatarimg" alt="" *ngIf="rev.author_details.avatar_path">
+      <img class="avatarimg" src="../../assets/5907.jpg" *ngIf="!rev.author_details.avatar_path">
+
+      <h3>{{rev.author_details.name }} {{rev.author_details.username}} : <i class="fa-solid fa-star" style="color: #e7b708;"></i>{{rev.author_details.rating }}</h3>
+
+      <p>{{rev.content}} .</p><a target="_blank" href={{rev.url}}> learn more</a>
+     
+    </li>
+  </ul>
+</ng-container>
+      </fieldset>
+
+      <fieldset  class="reviews">
+        <legend (click)="toggleSection('companies')">Production Companies <i class="fa-solid fa-circle-chevron-up"  *ngIf="section.companies"></i>  <i class="fa-solid fa-circle-chevron-down"  *ngIf="!section.companies"></i></legend>
+
+      <div class="avatars" *ngIf="section.companies">
+        <div class="company" *ngFor="let comp of movieDetails.production_companies">
+            <img [src]="'https://image.tmdb.org/t/p/w500/'+comp.logo_path " alt="" class="logo" *ngIf="comp.logo_path">
+      <img class="logo" src="../../assets/4045060.jpg" *ngIf="!comp.logo_path">
+
+            <p class="name">{{comp.name}}</p>
+        </div >
+      </div> <!-- end avatars -->
+    </fieldset>
+
+<fieldset class="reviews crews">
+        <legend (click)="toggleSection('cast')">Actors <i class="fa-solid fa-circle-chevron-up"  *ngIf="section.cast"></i>  <i class="fa-solid fa-circle-chevron-down"  *ngIf="!section.cast"></i></legend>
+<ng-container *ngIf="section.cast">
+
+        <div class="our-team" *ngFor="let actor of cast">
+          <div class="picture">
+            <img class="img-fluid" [src]="'https://image.tmdb.org/t/p/w500/'+actor.profile_path" *ngIf="actor.profile_path">
+            <img class="img-fluid" src="../../assets/5907.jpg" *ngIf="!actor.profile_path">
+          </div>
+          <div class="team-content">
+            <h3 class="name">{{actor.character}}</h3>
+            <h4 class="title">{{actor.original_name}}</h4>
+            <h5 class="title">{{actor.known_for_department}}</h5>
+          </div>
+          <ul class="social">
+            popularity : {{actor.popularity}}
+          </ul>
+      
+       
+  </div>
+</ng-container>
+
+</fieldset>
+
+<fieldset class="reviews crews">
+  <legend (click)="toggleSection('crew')">Crew <i class="fa-solid fa-circle-chevron-up"  *ngIf="section.crew"></i>  <i class="fa-solid fa-circle-chevron-down"  *ngIf="!section.crew"></i></legend>
+<ng-container *ngIf="section.crew">
+
+        <div class="our-team" *ngFor="let worker of crew">
+          <div class="picture">
+            <img class="img-fluid" [src]="'https://image.tmdb.org/t/p/w500/'+worker.profile_path" *ngIf="worker.profile_path">>
+            <img class="img-fluid" src="../../assets/5907.jpg" *ngIf="!worker.profile_path">
+          </div>
+          <div class="team-content">
+            <h3 class="name">{{worker.original_name}}</h3>
+            <h4 class="title">{{worker.job}}</h4>
+            <h5 class="title">{{worker.known_for_department}}</h5>
+          </div>
+          <ul class="social">
+            popularity : {{worker.popularity}}
+          </ul>
+      
+       
+  </div>
+</ng-container>
+
+</fieldset>
+    </div> <!-- end container -->
+  </div> <!-- end movie-card -->
+
+
+
+
+
+	<!-- movie-trailer.component.html -->
+
+

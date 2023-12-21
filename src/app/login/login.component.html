@@ -1,0 +1,28 @@
+<!-- login.component.html -->
+
+<div id="login" class="login-container">
+    <form class="login-form" [formGroup]="loginForm" (ngSubmit)="login()">
+      <fieldset class="login-fieldset">
+        <legend class="login-legend">Welcome again!</legend>
+  
+        <label class="login-label" for="username">Username </label>
+        <input class="login-input" type="text" formControlName="username">
+        <div *ngIf="loginForm.get('username').hasError('required') && loginForm.get('username').touched" class="login-input-error">
+          Username is required.
+        </div>
+        <div *ngIf="loginForm.get('username').hasError('email') && loginForm.get('username').touched" class="login-input-error">
+          Please enter a valid username.
+        </div>
+  
+        <label class="login-label" for="password">Password </label>
+        <input class="login-input" type="password" formControlName="password">
+        <div *ngIf="loginForm.get('password').hasError('required') && loginForm.get('password').touched" class="login-input-error">
+          Password is required.
+        </div>
+  
+        <a href="#" class="login-forgot-password">Forgot Password?</a>
+        <button class="login-button" type="submit">Log In</button>
+      </fieldset>
+    </form>
+  </div>
+  
