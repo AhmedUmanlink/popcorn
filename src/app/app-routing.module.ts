@@ -4,6 +4,7 @@ import { LoginComponent } from './login/login.component';
 import { MovieComponent } from './movie/movie.component';
 import { FavoritesComponent } from './favorites/favorites.component';
 import { FilmDetailsComponent } from './film-details/film-details.component';
+import { WatchListComponent } from './watch-list/watch-list.component';
 
 const routes: Routes = [
   {
@@ -21,6 +22,10 @@ const routes: Routes = [
   {
     path : 'MyFavoriteMovies',
     component : FavoritesComponent,
+   },
+   {
+    path : 'MyWatchList',
+    component : WatchListComponent,
    },
    {
     path : 'movie-details/:id',

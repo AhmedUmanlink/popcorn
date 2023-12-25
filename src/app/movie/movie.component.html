@@ -4,6 +4,7 @@
  <div class="container">
 
 <div class="filters">
+  <span class="filterToggler"><b><i class="fa-solid fa-filter"></i> Filters</b></span>
   
   <form action=""[formGroup]="movieService.filtersForm">
     <input type="text" value="reset filters " readonly (click)="movieService.filtersForm.reset();"><i class="fa-solid fa-rotate-right" (click)="movieService.filtersForm.reset();"></i>
@@ -25,19 +26,20 @@
   <img src="../../assets/mvnotfnd.png" alt="movies not fund">
 </div>
 <div class="moviesTYpes">
-  <span *ngIf="movieService.selectedtype=='discover'"><b>Discover All</b></span>
+  <span><b><i class="fa-solid fa-filter"></i> Filters</b></span>
+  <span *ngIf="movieService.selectedtype=='discover'"  ><b>Discover All</b></span>
   <span *ngIf="movieService.selectedtype!=='discover'" (click)="movieService.originalMovies=[];movieService.currentPage =1;reload();" >Discover All</span>
 
-  <span  *ngIf="movieService.selectedtype=='now_playing'" ><b>Now Playing</b></span>
+  <span  *ngIf="movieService.selectedtype=='now_playing'"  ><b>Now Playing</b></span>
   <span *ngIf="movieService.selectedtype!=='now_playing'" (click)="movieService.originalMovies=[];movieService.currentPage =1;loadMovies('now_playing');">Now Playing</span>
 
-  <span *ngIf="movieService.selectedtype=='top_rated'"><b>Top Rated</b></span>
+  <span *ngIf="movieService.selectedtype=='top_rated'" ><b>Top Rated</b></span>
   <span *ngIf="movieService.selectedtype!=='top_rated'" (click)="movieService.originalMovies=[];movieService.currentPage =1;loadMovies('top_rated');">Top Rated</span>
 
-  <span *ngIf="movieService.selectedtype=='popular'"><b>Popular</b></span>
+  <span *ngIf="movieService.selectedtype=='popular'" ><b>Popular</b></span>
   <span *ngIf="movieService.selectedtype!=='popular'" (click)="movieService.originalMovies=[];movieService.currentPage =1;loadMovies('popular');">Popular</span>
 
-  <span *ngIf="movieService.selectedtype=='upcoming'"><b>Upcoming</b></span>
+  <span *ngIf="movieService.selectedtype=='upcoming'" ><b>Upcoming</b></span>
   <span *ngIf="movieService.selectedtype!=='upcoming'" (click)="movieService.originalMovies=[];movieService.currentPage =1;loadMovies('upcoming');">Upcoming</span>
 
 </div>
@@ -59,6 +61,9 @@
         <div class="actions">
           <i class="fa-regular fa-heart bouncing-heart" *ngIf="!movieService.favoritesMovies.includes(movie.id)" (click)="addMovieToFavorites(movie.id,true)"></i>
           <i class="fa-solid fa-heart bouncing-heart" *ngIf="movieService.favoritesMovies.includes(movie.id)" (click)="addMovieToFavorites(movie.id,false)"></i>
+          <i class="fa-regular fa-eye" *ngIf="!movieService.watchList.includes(movie.id)" (click)="addMovieToWatchList(movie.id,true)"></i>
+          <i class="fa-solid fa-eye bouncing-heart" *ngIf="movieService.watchList.includes(movie.id)" (click)="addMovieToWatchList(movie.id,false)"></i>
+
           <span [routerLink]="['/movie-details',movie.id]"><i class="fa-solid fa-arrow-right"></i>  More info</span>
         </div>
       </div>

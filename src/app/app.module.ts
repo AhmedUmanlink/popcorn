@@ -14,9 +14,8 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { FavoritesComponent } from './favorites/favorites.component';
 import { FilmDetailsComponent } from './film-details/film-details.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { LightGallery } from 'lightgallery/lightgallery';
-import lightGallery from 'lightgallery';
 import { LightgalleryModule } from 'lightgallery/angular';
+import { WatchListComponent } from './watch-list/watch-list.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +26,7 @@ import { LightgalleryModule } from 'lightgallery/angular';
     NavbarComponent,
     FavoritesComponent,
     FilmDetailsComponent,
+    WatchListComponent,
 
   ],
   imports: [

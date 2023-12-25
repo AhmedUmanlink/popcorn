@@ -26,10 +26,24 @@ export class MovieComponent implements OnInit {
     this.reload();
     this.movieService.getFavoriteMovies().subscribe(
       (res)=>{
-        console.log(res);
+        // console.log(res);
         for (let movie of res.results) {
           
         this.movieService.favoritesMovies.push(movie.id)
+        }
+      },
+      (err)=>{
+        console.log(err);
+        
+      }
+    )
+
+    this.movieService.getWatchlist().subscribe(
+      (res)=>{
+        console.log('watchList',res);
+        for (let movie of res.results) {
+          
+        this.movieService.watchList.push(movie.id)
         }
       },
       (err)=>{
@@ -112,4 +126,16 @@ this.movieService.addMovieToFavorites(movieId,isFav).subscribe(
   err =>console.log(err)
 )
 }
+
+addMovieToWatchList(movieId:any,isWatched:boolean){
+  this.movieService.addToWatchlist(movieId,isWatched).subscribe(
+    res => {console.log(res)
+      if(isWatched===true)
+      this.movieService.watchList.push(movieId)
+    else if(isWatched===false)
+    this.movieService.watchList =  this.movieService.watchList.filter(id => id !== movieId);
+    },
+    err =>console.log(err)
+  )
+  }
 }

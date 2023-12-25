@@ -7,7 +7,7 @@
       
       <form action=""[formGroup]="movieService.filtersForm">
         <input type="text" value="reset filters " readonly (click)="movieService.filtersForm.reset();"><i class="fa-solid fa-rotate-right" (click)="movieService.filtersForm.reset();"></i>
-            <select formControlName="selectedCategory" (change)="scrollup()" >
+            <select formControlName="selectedCategory"  >
               <option  selected  disabled>Select a category</option>
               <option *ngFor="let genre of movieService.genres" [value]="genre.id">{{ genre.name }}</option>
             </select>
@@ -21,11 +21,11 @@
     
      <div class="moviesContainer" #moviesContainer infinite-scroll 
      (scrolled)="onScroll()">
-    <div class="mnf" *ngIf="favoritesMoviesList &&favoritesMoviesList.length==0">
+    <div class="mnf" *ngIf="watchedMoviesList &&watchedMoviesList.length==0">
       <img src="../../assets/mvnotfnd.png" alt="movies not fund">
     </div>
  
-    <div class="movie_card" [id]="movie.id" *ngFor="let movie of favoritesMoviesList | movieFilter: movieService.filtersForm.value.selectedCategory :movieService.filtersForm.value.start :movieService.filtersForm.value.end ;let i=index">    <figure class="movie">
+    <div class="movie_card" [id]="movie.id" *ngFor="let movie of watchedMoviesList | movieFilter: movieService.filtersForm.value.selectedCategory :movieService.filtersForm.value.start :movieService.filtersForm.value.end ;let i=index">    <figure class="movie">
           <div class="movie__hero">
             <img [src]="'https://image.tmdb.org/t/p/w500/' + movie.poster_path" [alt]="movie.title" class="movie__img">
           </div>
@@ -41,10 +41,10 @@
               <p class="movie__detail"><span class="icons icons-yellow"><i class="fas fa-file-invoice-dollar"></i></span> Popularity: {{ movie.popularity }}</p>
             </div>
             <div class="actions">
-              <i class="fa-solid fa-heart bouncing-heart" *ngIf="movieService.favoritesMovies.includes(movie.id)" (click)="removeMoviefromFavorites(movie.id,i)"></i>
-              <i class="fa-regular fa-eye" *ngIf="!movieService.watchList.includes(movie.id)" (click)="addMovieToWatchList(movie.id,true)"></i>
-              <i class="fa-solid fa-eye bouncing-heart" *ngIf="movieService.watchList.includes(movie.id)" (click)="addMovieToWatchList(movie.id,false)"></i>
-    
+              <i class="fa-regular fa-heart bouncing-heart" *ngIf="!movieService.favoritesMovies.includes(movie.id)" (click)="addMovieToFavorites(movie.id,true)"></i>
+              <i class="fa-solid fa-heart bouncing-heart" *ngIf="movieService.favoritesMovies.includes(movie.id)" (click)="addMovieToFavorites(movie.id,false)"></i>
+             
+              <i class="fa-solid fa-eye bouncing-heart" *ngIf="movieService.watchList.includes(movie.id)" (click)="removeMoviefromWatchList(movie.id,i)"></i>
               <span [routerLink]="['/movie-details',movie.id]"><i class="fa-solid fa-arrow-right"></i>  More info</span>
             </div>
           </div>

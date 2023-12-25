@@ -15,6 +15,7 @@ export class MovieService {
   genres: any;
   originalMovies: any[] = [];
   favoritesMovies :any[]=[]
+  watchList :any[]=[]
   searchQueryForm: any;
   filtersForm:any
   selectedtype = 'discover';
@@ -24,7 +25,7 @@ export class MovieService {
   {
     this.getMovieGenres().subscribe(
       (data) => {
-        console.log(data);
+        // console.log(data);
         
         this.genres = data.genres;
       },
@@ -96,6 +97,53 @@ export class MovieService {
 
     return this.http.get(url, { params });
   }
+
+
+  addToWatchlist(movieId: any,iswatched:boolean): Observable<any> {
+    const accountId =JSON.parse(sessionStorage.getItem('account')!).id
+
+    const url = `${this.env.baseUrl}/account/${accountId}/watchlist`;
+    
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+
+    const body = {
+      media_type: 'movie',
+      media_id: movieId,
+      watchlist: iswatched,
+    };
+
+    const params = {
+      api_key: this.env.api_key,
+      session_id: JSON.parse(sessionStorage.getItem('sessionData')!).session_id,
+    };
+
+    return this.http.post(url, body, { headers, params });
+  }
+
+
+
+
+
+
+  getWatchlist(): Observable<any> {
+    const accountId =JSON.parse(sessionStorage.getItem('account')!).id
+
+    const url = `${this.env.baseUrl}/account/${accountId}/watchlist/movies`;
+
+    const params = {
+      api_key: this.env.api_key,
+      session_id: JSON.parse(sessionStorage.getItem('sessionData')!).session_id,
+    };
+
+    return this.http.get(url, { params });
+  }
+
+
+
+
+
 
   getFavoriteMovies(): Observable<any> {
     const accountId =JSON.parse(sessionStorage.getItem('account')!).id

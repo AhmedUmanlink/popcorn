@@ -16,7 +16,7 @@
             <i class="fa-solid fa-star" style="color: #e7b708;"></i>{{movieDetails.vote_average}}
         </fieldset>
           
-          <span class="likes">popularity {{movieDetails.popularity}}</span>
+          <span class="rating likes">popularity {{movieDetails.popularity}}</span>
           
         </div> <!-- end details -->
         
@@ -125,7 +125,7 @@
 
         <div class="our-team" *ngFor="let worker of crew">
           <div class="picture">
-            <img class="img-fluid" [src]="'https://image.tmdb.org/t/p/w500/'+worker.profile_path" *ngIf="worker.profile_path">>
+            <img class="img-fluid" [src]="'https://image.tmdb.org/t/p/w500/'+worker.profile_path" *ngIf="worker.profile_path">
             <img class="img-fluid" src="../../assets/5907.jpg" *ngIf="!worker.profile_path">
           </div>
           <div class="team-content">

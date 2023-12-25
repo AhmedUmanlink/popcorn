@@ -1,18 +1,4 @@
 /* Your global styles or component-specific styles */
-:root {
-    --bg-color: #88AB8E;
-    ---text-color: #F2F1EB;
-    ---bg-color: #EEE7DA;
-    --movie-card-bg: #fff;
-    --movie-card-shadow: rgba(0, 0, 0, 0.2);
-    --tag-color-1: #A9C9FF;
-    --tag-color-2: #FFBBEC;
-    --price-gradient-start: #A9C9FF;
-    --price-gradient-end: #FFBBEC;
-    --price-text-color: #fff;
-    --fire-icon-color: salmon;
-  }
-  
   nav{
     width: 100%;
     display: flex;
@@ -20,8 +6,8 @@
     justify-content: space-evenly;
     flex-wrap: wrap;
     padding: 1rem 1rem;
-    background: #88AB8E;
-    color: #F2F1EB;
+    background: var(--secondary);
+    color: var(--textP);
     height: 10rem;
     position: sticky;
     top: 0;
@@ -45,18 +31,19 @@
     align-items: center;
     justify-content: space-evenly;
     flex-wrap: wrap;
-    background-color: #EEE7DA;
-    color: #15A986;
+    background-color: var(--primary);
+    
     padding: 0.5rem 0;
     border-radius: 0.3rem;
   }
   .navigation >a {
-    color: #5F8670;
     cursor: pointer;
+    color: var(--textP);
+
   }
   .active-link {
     
-    color: #d36a6a !important;
+    color: var(--textS) !important;
     font-weight: 700;
   }
   .form {
@@ -74,7 +61,7 @@
     width: 13rem;
     padding-inline-end: 1em;
    /*  change this for padding in the end of input */
-    background: var(--input-bg);
+    background: var(--primary);
     position: relative;
     border-radius: 4px;
   }
@@ -83,12 +70,13 @@
     display: flex;
     align-items: center;
     width: 100%;
-    height: var(--height);
+    height: 40px;
   }
   
   .form input {
     width: 100%;
-    padding-inline-start: calc(var(--padding) + var(--gap));
+    padding-inline-start: calc(1.5rem + 2rem);
+    color: var(--textP);
     outline: none;
     background: none;
     border: 0;
@@ -96,7 +84,7 @@
   /* style for both icons -- search,close */
   .form svg {
     /* display: block; */
-    color: #111;
+    color: var(--textP);
     transition: 0.3s cubic-bezier(.4,0,.2,1);
     position: absolute;
     height: 15px;
@@ -104,7 +92,7 @@
   /* search icon */
   .icon {
     position: absolute;
-    left: var(--padding);
+    left: 1.5rem;
     transition: 0.3s cubic-bezier(.4,0,.2,1);
     display: flex;
     justify-content: center;
@@ -121,12 +109,12 @@
     /* removing default bg of button */
     background: none;
     border: none;
-    right: calc(var(--padding) - var(--gap));
+    right: calc(1.5rem - 2rem);
     box-sizing: border-box;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #111;
+    color:var(--textP);
     padding: 0.1em;
     width: 20px;
     height: 20px;
@@ -160,7 +148,7 @@
   .form input:valid ~ .icon .swap-off {
     opacity: 1;
     visibility: visible;
-    color: var(--icon-change-color);
+    color: var(--textS);
   }
   
   .form input:valid ~ .icon .swap-on {
@@ -175,3 +163,76 @@
     transition: 0s;
   }
   
+
+  .l {
+    display: block;
+    font-size: 1em;
+    position: absolute;
+    right: 1.5rem;
+    top: 1rem;
+  }
+  
+  .l {
+    background-color: rgba(0,0,0,0.7);
+    border-radius: 0.75em;
+    box-shadow: 0.125em 0.125em 0 0.125em rgba(0,0,0,0.3) inset;
+    color: #fdea7b;
+    display: inline-flex;
+    align-items: center;
+    margin: auto;
+    height: 1.5em;
+    transition: background-color 0.1s 0.3s ease-out, box-shadow 0.1s 0.3s ease-out;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
+  
+  .l:before, .l:after {
+    content: "";
+    display: block;
+  }
+  
+  .l:before {
+    background-color: #d7d7d7;
+    border-radius: 50%;
+    width: 1.2em;
+    height: 1.2em;
+    transition: background-color 0.1s 0.3s ease-out, transform 0.3s ease-out;
+    z-index: 1;
+  }
+  
+  .l:after {
+    background: linear-gradient(transparent 50%, rgba(0,0,0,0.15) 0) 0 50% / 50% 100%,
+      repeating-linear-gradient(90deg,#bbb 0,#bbb,#bbb 20%,#999 20%,#999 40%) 0 50% / 50% 100%,
+      radial-gradient(circle at 50% 50%,#888 25%, transparent 26%);
+    background-repeat: no-repeat;
+    border: 0.25em solid transparent;
+    border-left: 0.4em solid #d8d8d8;
+    border-right: 0 solid transparent;
+    transition: border-left-color 0.1s 0.3s ease-out, transform 0.3s ease-out;
+    transform: translateX(-22.5%);
+    transform-origin: 25% 50%;
+    width: 1.2em;
+    height: 1em;
+    box-sizing: border-box;
+  }
+  /* Checked */
+  .l:checked {
+    background-color: rgba(0,0,0,0.45);
+    box-shadow: 0.125em 0.125em 0 0.125em rgba(0,0,0,0.1) inset;
+  }
+  
+  .l:checked:before {
+    background-color: currentColor;
+    transform: translateX(125%)
+  }
+  
+  .l:checked:after {
+    border-left-color: currentColor;
+    transform: translateX(-2.5%) rotateY(180deg);
+  }
+  /* Other States */
+  .l:focus {
+    /* Usually an anti-A11Y practice but set to remove an annoyance just for this demo */
+    outline: 0;
+  }

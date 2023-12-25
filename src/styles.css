@@ -1,7 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
 @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,200;6..12,300;6..12,400;6..12,500;6..12,600;6..12,700;6..12,800;6..12,900&display=swap');
 
-
+:root {
+    /* Light Mode Colors */
+    --primary: #EEEBDD;    /* Light Beige */
+    --secondary: #CE1212;  /* Dark Red */
+    --background: #f5f5f5; /* Light Gray */
+    --textP: #333;         /* Dark Gray */
+    --textS:  #d36a6a;
+    --text3 :royalblue;        /* Dark Gray */
+    --text4 :#b1b0ac;        /* Dark Gray */      /* Light Gray */
+  }
+  
 *{
     margin: 0;
     padding: 0;
@@ -12,7 +22,8 @@ body{
     width: 100vw;
     min-height: 100vh;
     font-family: 'Nunito Sans', sans-serif;
-    background-color: #F2F1EB;
+    background-color: var(--background);
+    color :var(--textP);
 }
 app-root {
     display: flex;

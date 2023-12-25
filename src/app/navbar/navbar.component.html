@@ -6,7 +6,7 @@
     <div class="navigation">
       <a [routerLink]="['/movie']" routerLinkActive="active-link" ><i class="fa-solid fa-magnifying-glass"></i> Discover </a>
       <a [routerLink]="['/MyFavoriteMovies']"  routerLinkActive="active-link"><i class="fa-regular fa-heart"></i> Favorites</a>
-      <a href=""><i class="fa-solid fa-list-ol"></i> Watch List</a>
+      <a [routerLink]="['/MyWatchList']"  routerLinkActive="active-link"><i class="fa-solid fa-list-ol"></i> Watch List</a>
     
     </div>
     <div class="searchBar">
@@ -29,5 +29,5 @@
         </label>
     </form>
     </div>
-    
+    <input type="checkbox" class="l" (change)="switchTheme()">
     </nav>

@@ -1,11 +1,11 @@
 
  .movie-card {
-	 color: #a9a8a3;
+	 color: var(--text4);
 }
  .container {
 	 margin: 0 auto;
 	 width: 100%;
-	 background: #f0f0ed;
+	 background: var(--background);
 	 border-radius: 5px;
 	 position: relative;
 }
@@ -19,7 +19,7 @@
 	 border-top-right-radius: 5px;
 }
  .hero:before {
-	 background: wheat;
+	 background: var(--primary);
      background: var(--background-image);
 	 content: '';
 	 width: 100%;
@@ -45,7 +45,7 @@
 	 padding: 190px 0 0 280px;
 }
  .details .title1 {
-	 color: white;
+	 color: var(--primary);
 	 font-size: 44px;
 	 margin-bottom: 13px;
 	 position: relative;
@@ -56,12 +56,12 @@
 	 margin-left: 12px;
 	 background: #c4af3d;
 	 border-radius: 5px;
-	 color: #544c21;
+	 color: var(--textP);
 	 font-size: 14px;
 	 padding: 0px 4px;
 }
  .details .title2 {
-	 color: #c7c1ba;
+	 color: var(--primary);
 	 font-size: 23px;
 	 font-weight: 300;
 	 margin-bottom: 15px;
@@ -80,7 +80,9 @@
 	 height: 200px;
 	 font-size: 16px;
 	 line-height: 26px;
-	 color: #b1b0ac;
+	 color: var(
+		--text4
+	 );
 }
  .column1 {
 	 padding-left: 50px;
@@ -101,12 +103,23 @@
  .tag:hover {
 	 background: #ddd;
 }
+fieldset, label {
+	margin: 0;
+	padding: 0;
+}
+/****** Style Star Rating Widget *****/
+.rating {
+	border: none;
+	float: left;
+	color: var(--primary);
+}
  .column2 {
 	 padding-left: 41px;
 	 padding-top: 30px;
 	 margin-left: 20px;
 	 width: 60%;
 	 float: left;
+	 background-color: transparent;
 }
  .avatars {
 	 margin-top: 23px;
@@ -133,89 +146,7 @@
     height: auto;
 	text-align: center !important;
 }
- fieldset, label {
-	 margin: 0;
-	 padding: 0;
-}
-/****** Style Star Rating Widget *****/
- .rating {
-	 border: none;
-	 float: left;
-}
- .rating > input {
-	 display: none;
-}
- .rating > label:before {
-	 margin: 5px;
-	 margin-top: 0;
-	 font-size: 1em;
-	 font-family: FontAwesome;
-	 display: inline-block;
-	 content: "\f005";
-}
- .rating > .half:before {
-	 content: "\f089";
-	 position: absolute;
-}
- .rating > label {
-	 color: #ddd;
-	 float: right;
-}
-/***** CSS Magic to Highlight Stars on Hover *****/
- .rating > input:checked ~ label, .rating:not(:checked) > label:hover, .rating:not(:checked) > label:hover ~ label {
-	/* show gold star when clicked */
-	/* hover current star */
-	 color: #ffd700;
-}
-/* hover previous stars in list */
- .rating > input:checked + label:hover, .rating > input:checked ~ label:hover, .rating > label:hover ~ input:checked ~ label, .rating > input:checked ~ label:hover ~ label {
-	/* hover current star when changing rating */
-	/* lighten current selection */
-	 color: #ffed85;
-}
- a[data-tooltip] {
-	 position: relative;
-}
- a[data-tooltip]::before, a[data-tooltip]::after {
-	 position: absolute;
-	 display: none;
-	 opacity: 0.85;
-}
- a[data-tooltip]::before {
-	/* * using data-tooltip instead of title so we * don't have the real tooltip overlapping */
-	 content: attr(data-tooltip);
-	 background: #000;
-	 color: #fff;
-	 font-size: 13px;
-	 padding: 5px;
-	 border-radius: 5px;
-	/* we don't want the text to wrap */
-	 white-space: nowrap;
-	 text-decoration: none;
-}
- a[data-tooltip]::after {
-	 width: 0;
-	 height: 0;
-	 border: 6px solid transparent;
-	 content: '';
-}
- a[data-tooltip]:hover::before, a[data-tooltip]:hover::after {
-	 display: block;
-}
-/** positioning **/
-/* top tooltip */
- a[data-tooltip][data-placement="top"]::before {
-	 bottom: 100%;
-	 left: 0;
-	 margin-bottom: 40px;
-}
- a[data-tooltip][data-placement="top"]::after {
-	 border-top-color: #000;
-	 border-bottom: none;
-	 bottom: 50px;
-	 left: 20px;
-	 margin-bottom: 4px;
-}
+
  
 
 
@@ -246,7 +177,7 @@ justify-content: center;
 .twocolumn li {
     padding: 1rem;
    
-    background-color: #eeeeee;
+    background-color: var(--background);
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -267,7 +198,7 @@ justify-content: center;
     white-space: wrap;
     text-overflow: ellipsis;
     margin: 0 auto;
-    color: #555555;
+    color: var(--textP);
     text-align: justify;
   }
   .twocolumn a{
@@ -278,7 +209,7 @@ width: 90%;
    width: 3rem;
    height: 3rem;
    border-radius: 50%;
-   background-color: #555555;
+   background-color: var(--secondary);
   }
 
 
@@ -402,7 +333,7 @@ width: 90%;
 		  top: 50%;
 		  margin-left: -6px;
 		  margin-top: -6px;
-		  background: #ff0000;
+		  background: var(--secondary);
 		  border-radius: 50%;
 		  padding: 6px;
 		  opacity: 0;
@@ -457,7 +388,7 @@ width: 90%;
 		  transition: box-shadow 0.15s, margin 0.15s;
 	  }
 	  .csslider > .arrows label:hover {
-		  box-shadow: inset 3px -3px 0 2px #ff0000;
+		  box-shadow: inset 3px -3px 0 2px var(--secondary);
 		  margin: 0 0px;
 	  }
 	  .csslider > .arrows label:before {
@@ -573,7 +504,7 @@ width: 90%;
 	  .our-team {
 		padding: 0.5rem;
 		width: 20%;
-		background-color: #f7f5ec;
+		background-color: var(--background);
 		text-align: center;
 		overflow: hidden;
 		position: relative;
@@ -593,7 +524,7 @@ width: 90%;
 		width: 100%;
 		height: 0;
 		border-radius: 50%;
-		background-color: #1369ce;
+		background-color: var(--secondary);
 		position: absolute;
 		bottom: 135%;
 		right: 0;
@@ -612,7 +543,7 @@ width: 90%;
 		width: 100%;
 		height: 100%;
 		border-radius: 50%;
-		background-color: #1369ce;
+		background-color: var(--secondary);
 		position: absolute;
 		top: 0;
 		left: 0;
@@ -636,7 +567,7 @@ width: 90%;
 	  .our-team .title {
 		display: block;
 		font-size: 15px;
-		color: #4e5052;
+		color: var(--textP);
 		text-transform: capitalize;
 	  }
 	  
@@ -644,7 +575,7 @@ width: 90%;
 		width: 100%;
 		padding: 0;
 		margin: 0;
-		background-color: #1369ce;
+		background-color: var(--secondary);
 		position: absolute;
 		bottom: -100px;
 		left: 0;
@@ -659,7 +590,7 @@ width: 90%;
 		display: inline-block;
 		padding: 10px;
 		font-size: 17px;
-		color: white;
+		color: var(--text4);
 		transition: all 0.3s ease 0s;
 		text-decoration: none;
 	  }
@@ -667,7 +598,7 @@ width: 90%;
 
 	  
 	  .our-team .social li:hover {
-		color: #1369ce;
-		background-color: #f7f5ec;
+		color:var(--secondary);
+		background-color: var(--text4);
 	  }
 	  
