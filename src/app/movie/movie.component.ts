@@ -101,6 +101,7 @@ export class MovieComponent implements OnInit {
   
     // Listen for the infinite-scroll event
     onScroll(): void {
+      
       this.loadMovies(this.movieService.selectedtype);
     }
 
@@ -137,5 +138,11 @@ addMovieToWatchList(movieId:any,isWatched:boolean){
     },
     err =>console.log(err)
   )
+  }
+
+  filtersOpen :any= 'open';
+
+  toggleFilters() {
+    this.filtersOpen = this.filtersOpen=='open' ? 'close' :'open';
   }
 }

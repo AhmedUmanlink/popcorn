@@ -2,59 +2,88 @@
 
 
  <div class="container">
+  <div class="moviesTYpes">
+    <span class="filterToggler" (click)="toggleFilters()"><b>
+      <i class="fa-solid fa-filter" *ngIf="filtersOpen=='close'"></i> 
+      <i class="fa-solid fa-filter-circle-xmark" *ngIf="filtersOpen=='open'"></i>
+      Filters</b></span>
+  
+   
+  </div>
+<div class="filters"  [ngClass]="filtersOpen">
+  
+  <form action=""[formGroup]="movieService.filtersForm">
+    <input type="text" value="reset filters " readonly (click)="movieService.filtersForm.reset();"><i class="fa-solid fa-rotate-right" (click)="movieService.filtersForm.reset();"></i>
+        <select formControlName="selectedCategory" (change)="scrollup()" >
+          <option  selected  disabled>Select a category</option>
+          <option *ngFor="let genre of movieService.genres" [value]="genre.id">{{ genre.name }}</option>
+        </select>
+        <i class="fa-solid fa-rotate-right" (click)="movieService.filtersForm.get('selectedCategory')?.reset();"></i>
+        <input  type="date" formControlName="start" ><i class="fa-solid fa-rotate-right" (click)="movieService.filtersForm.get('start')?.reset();"></i>
+        <input   type="date" formControlName="end" ><i class="fa-solid fa-rotate-right" (click)="movieService.filtersForm.get('end')?.reset();"></i>
+        <div class="break"></div>
 
-    <div class="filters">
-      
-      <form action=""[formGroup]="movieService.filtersForm">
-        <input type="text" value="reset filters " readonly (click)="movieService.filtersForm.reset();"><i class="fa-solid fa-rotate-right" (click)="movieService.filtersForm.reset();"></i>
-            <select formControlName="selectedCategory" (change)="scrollup()" >
-              <option  selected  disabled>Select a category</option>
-              <option *ngFor="let genre of movieService.genres" [value]="genre.id">{{ genre.name }}</option>
-            </select>
-            <i class="fa-solid fa-rotate-right" (click)="movieService.filtersForm.get('selectedCategory')?.reset();"></i>
-            <input  type="date" formControlName="start" ><i class="fa-solid fa-rotate-right" (click)="movieService.filtersForm.get('start')?.reset();"></i>
-            <input   type="date" formControlName="end" ><i class="fa-solid fa-rotate-right" (click)="movieService.filtersForm.get('end')?.reset();"></i>
-          </form>
-          <br>
-          <hr>
-    </div>
-    
-     <div class="moviesContainer" #moviesContainer infinite-scroll 
-     (scrolled)="onScroll()">
-    <div class="mnf" *ngIf="favoritesMoviesList &&favoritesMoviesList.length==0">
-      <img src="../../assets/mvnotfnd.png" alt="movies not fund">
-    </div>
- 
-    <div class="movie_card" [id]="movie.id" *ngFor="let movie of favoritesMoviesList | movieFilter: movieService.filtersForm.value.selectedCategory :movieService.filtersForm.value.start :movieService.filtersForm.value.end ;let i=index">    <figure class="movie">
-          <div class="movie__hero">
-            <img [src]="'https://image.tmdb.org/t/p/w500/' + movie.poster_path" [alt]="movie.title" class="movie__img">
-          </div>
-          <div class="movie__content">
-            <div class="movie__title">
-              <h1 class="heading__primary">{{ movie.title }} <i class="fas fa-fire"></i></h1>
-              <div *ngFor="let genreId of movie.genre_ids" class="movie__tag">#{{ getGenreName(genreId) }}</div>
-            </div>
-            <p class="movie__description">{{ movie.overview }}</p>
-            <div class="movie__details">
-              <p class="movie__detail"><span class="icons icons-red"><i class="fas fa-camera-retro"></i></span> Director Name</p>
-              <p class="movie__detail"><span class="icons icons-grey"><i class="fas fa-clock"></i></span> {{ movie.release_date }}</p>
-              <p class="movie__detail"><span class="icons icons-yellow"><i class="fas fa-file-invoice-dollar"></i></span> Popularity: {{ movie.popularity }}</p>
-            </div>
-            <div class="actions">
-              <i class="fa-solid fa-heart bouncing-heart" *ngIf="movieService.favoritesMovies.includes(movie.id)" (click)="removeMoviefromFavorites(movie.id,i)"></i>
-              <i class="fa-regular fa-eye" *ngIf="!movieService.watchList.includes(movie.id)" (click)="addMovieToWatchList(movie.id,true)"></i>
-              <i class="fa-solid fa-eye bouncing-heart" *ngIf="movieService.watchList.includes(movie.id)" (click)="addMovieToWatchList(movie.id,false)"></i>
-    
-              <span [routerLink]="['/movie-details',movie.id]"><i class="fa-solid fa-arrow-right"></i>  More info</span>
-            </div>
-          </div>
-          <div class="movie__price">Rating: {{ movie.vote_average }}</div>
-        </figure>
+        <select formControlName="field" (change)="scrollup()" >
+          <option  selected  disabled>Select a category</option>
+          <option  value="release_date">release_date</option>
+          <option  value="vote_average">vote_average</option>
+        
+        </select>
+   
+
+        <label *ngIf="movieService.filtersForm.value.order=='desc'">
+          <i class="fa-solid fa-down-long"></i>
+          <input type="radio" formControlName="order" value="asc" >
+        </label>
+        <label *ngIf="!movieService.filtersForm.value.order">
+          <i class="fa-solid fa-up-down"></i>
+          <input type="radio" formControlName="order" value="desc"> 
+        </label>
+        <label *ngIf="movieService.filtersForm.value.order=='asc'">
+          <i class="fa-solid fa-up-long"></i>
+          <input type="radio" formControlName="order" value="desc" > 
+        </label>
+      </form>
+      <br>
+      <hr>
+</div>
+
+ <div class="moviesContainer" #moviesContainer infiniteScroll
+ [infiniteScrollDistance]="2"
+ (scrolled)="onScroll()">
+<div class="mnf" *ngIf="favoritesMoviesList && favoritesMoviesList.length==0">
+  <img src="../../assets/mvnotfnd.png" alt="movies not fund">
+</div>
+
+<div class="movie_card" [id]="movie.id" *ngFor="let movie of favoritesMoviesList | movieFilter: movieService.filtersForm.value;let i=index">    <figure class="movie">
+      <div class="movie__hero">
+        <img [src]="'https://image.tmdb.org/t/p/w500/' + movie.poster_path" [alt]="movie.title" class="movie__img">
       </div>
-    
-          
-     </div>
-    
-    </div>
-    
-    
+      <div class="movie__content">
+        <div class="movie__title">
+          <h1 class="heading__primary">{{ movie.title }} <i class="fas fa-fire"></i></h1>
+          <div *ngFor="let genreId of movie.genre_ids" class="movie__tag">#{{ getGenreName(genreId) }}</div>
+        </div>
+        <p class="movie__description">{{ movie.overview }}</p>
+        <div class="movie__details">
+          <p class="movie__detail"><span class="icons icons-red"><i class="fas fa-camera-retro"></i></span> Director Name</p>
+          <p class="movie__detail"><span class="icons icons-grey"><i class="fas fa-clock"></i></span> {{ movie.release_date }}</p>
+          <p class="movie__detail"><span class="icons icons-yellow"><i class="fas fa-file-invoice-dollar"></i></span> Popularity: {{ movie.popularity }}</p>
+        </div>
+        <div class="actions">
+          <i class="fa-solid fa-heart bouncing-heart" *ngIf="movieService.favoritesMovies.includes(movie.id)" (click)="removeMoviefromFavorites(movie.id,i)"></i>
+          <i class="fa-regular fa-eye" *ngIf="!movieService.watchList.includes(movie.id)" (click)="addMovieToWatchList(movie.id,true)"></i>
+          <i class="fa-solid fa-eye bouncing-heart" *ngIf="movieService.watchList.includes(movie.id)" (click)="addMovieToWatchList(movie.id,false)"></i>
+
+          <span [routerLink]="['/movie-details',movie.id]"><i class="fa-solid fa-arrow-right"></i>  More info</span>
+        </div>
+      </div>
+      <div class="movie__price">Rating: {{ movie.vote_average }}</div>
+    </figure>
+  </div>
+
+      
+ </div>
+
+</div>
+

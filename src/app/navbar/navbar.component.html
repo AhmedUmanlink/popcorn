@@ -1,15 +1,19 @@
 <nav *ngIf="canShow()">
     <div class="brand">
       <!-- P<span>🎬</span>P -->
-      <img src="../../assets/log.png" alt="" srcset="">
+      <img src="../../assets//movie.png" alt="" srcset="" *ngIf="!isDarkMode">
+      <img src="../../assets/movieDark.png" alt="" srcset="" *ngIf="isDarkMode">
     </div>
+    <div class="content">
+
+  
     <div class="navigation">
       <a [routerLink]="['/movie']" routerLinkActive="active-link" ><i class="fa-solid fa-magnifying-glass"></i> Discover </a>
       <a [routerLink]="['/MyFavoriteMovies']"  routerLinkActive="active-link"><i class="fa-regular fa-heart"></i> Favorites</a>
       <a [routerLink]="['/MyWatchList']"  routerLinkActive="active-link"><i class="fa-solid fa-list-ol"></i> Watch List</a>
     
     </div>
-    <div class="searchBar">
+    <div class="searchBar" *ngIf="canSerach()">
       <form class="form" [formGroup]="movieService.searchQueryForm">
         <label for="search" (click)="searchMovies()" >
             <input required="" autocomplete="off" placeholder="search your movies" id="search" type="text" formControlName="searchQuery" >
@@ -29,5 +33,6 @@
         </label>
     </form>
     </div>
-    <input type="checkbox" class="l" (change)="switchTheme()">
+</div>
+    <input type="checkbox" checked class="l" (change)="switchTheme()">
     </nav>

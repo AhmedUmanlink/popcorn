@@ -23,7 +23,7 @@ export class FavoritesComponent implements OnInit {
     this.movieService.getFavoriteMovies().subscribe(
       (res)=>{
         console.log(res);
-        this.favoritesMoviesList=res.results
+        this.favoritesMoviesList.push(...res.results)
         for (let movie of res.results) {
           
         this.movieService.favoritesMovies.push(movie.id)
@@ -49,22 +49,24 @@ export class FavoritesComponent implements OnInit {
     )
   }
 
-
-  loadMovies(type: string) {
-    this.movieService.getMoviesByFilters(type, this.movieService.currentPage).subscribe(
-      (data: any) => {
-        console.log(data);
-        
-        this.movieService.selectedtype = type;
-        if (this.movieService.currentPage == 1) this.movieService.originalMovies = data.results;
-        else this.movieService.originalMovies.push(...data.results);
-
-        this.movieService.currentPage++;
+page =1
+  loadMovies() {
+      this.movieService.getFavoriteMovies(this.page).subscribe(
+      (res)=>{
+        console.log(res);
+        this.favoritesMoviesList.push(...res.results)
+        for (let movie of res.results) {
+          
+        this.movieService.favoritesMovies.push(movie.id)
+        }
       },
-      (error) => {
-        console.error('Error fetching movies:', error);
+      (err)=>{
+        console.log(err);
+        
       }
-    );
+    )
+
+
   }
 
   getGenreName(genreId: number): string {
@@ -76,7 +78,8 @@ export class FavoritesComponent implements OnInit {
   
 
     onScroll(): void {
-      this.loadMovies(this.movieService.selectedtype);
+      this.page++
+      this.loadMovies();
     }
 
 scrollup(){
@@ -114,5 +117,11 @@ addMovieToWatchList(movieId:any,isWatched:boolean){
     },
     err =>console.log(err)
   )
+  }
+
+  filtersOpen :any= 'open';
+
+  toggleFilters() {
+    this.filtersOpen = this.filtersOpen=='open' ? 'close' :'open';
   }
 }

@@ -32,22 +32,21 @@ export class WatchListComponent {
     )
   }
 
-
-  loadMovies(type: string) {
-    this.movieService.getMoviesByFilters(type, this.movieService.currentPage).subscribe(
-      (data: any) => {
-        console.log(data);
-        
-        this.movieService.selectedtype = type;
-        if (this.movieService.currentPage == 1) this.movieService.originalMovies = data.results;
-        else this.movieService.originalMovies.push(...data.results);
-
-        this.movieService.currentPage++;
+page=1
+  loadMovies() {
+    this.movieService.getWatchlist(this.page).subscribe(
+      (res)=>{
+        console.log(res);
+        this.watchedMoviesList.push(...res.results)
+        for (let movie of res.results) {
+          
+        this.movieService.watchList.push(movie.id)
+        }
       },
-      (error) => {
-        console.error('Error fetching movies:', error);
-      }
-    );
+      (err)=>{
+        console.log(err);
+        
+      })
   }
 
   getGenreName(genreId: number): string {
@@ -59,7 +58,8 @@ export class WatchListComponent {
   
 
     onScroll(): void {
-      this.loadMovies(this.movieService.selectedtype);
+      this.page++
+      this.loadMovies();
     }
 
 
@@ -86,5 +86,11 @@ addMovieToFavorites(movieId:any,isFav:boolean){
     },
     err =>console.log(err)
   )
+  }
+
+  filtersOpen :any= 'open';
+
+  toggleFilters() {
+    this.filtersOpen = this.filtersOpen=='open' ? 'close' :'open';
   }
 }

@@ -16,6 +16,10 @@ constructor(protected movieService: MovieService,private router:Router,private r
 canShow(){
   return this.router.url !== "/login"
 }
+
+canSerach(){
+  return this.router.url === "/movie"
+}
 searchMovies() {
 
   if (this.movieService.searchQueryForm.value.searchQuery) {

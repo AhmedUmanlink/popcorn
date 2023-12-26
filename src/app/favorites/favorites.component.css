@@ -3,31 +3,72 @@
 .container {
   display: flex;
   width: 100%;
+  flex-wrap: wrap;
+  position: relative;
 }
 .moviesTYpes{
-  width: 100%;
+  width: 100% !important;
+  height: 3rem;
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
   flex-wrap: wrap;
+  justify-content: space-between;
   background-color: var(--primary);
   color: var(--textP);
-  padding: 1rem 0;
   position: sticky;
   top: 10rem;
+  padding-right: 2rem;
+}
+ .filterToggler{
+  background-color: var(--textS);
+  color: white;
+  cursor: pointer;
+  padding: 0.5rem ;
+  width:  200px;
+  height: 3rem;
+  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .moviesTYpes >span:hover {
   cursor: pointer;
   font-weight: 700;
 }
 .filters {
+  z-index: 1;
   width: 200px;
   background-color:var(--primary) ;
   height: calc(100vh - 10rem);
   padding: 0.5rem;
-  position: sticky;
-  top:10rem;
+  position: fixed;
+  top:13rem;
 
+}
+.filters.open {
+  left: 0;
+  animation: slideIn .5s ease forwards; /* Apply slideIn animation when opening */
+}
+.filters.close {
+  left: 0;
+  animation: slideOut .5s ease forwards; /* Apply slideIn animation when opening */
+}
+@keyframes slideIn {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideOut {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
 }
 .filters form {
   width: 100%;
@@ -46,7 +87,7 @@
   height: 40px;
 
 }
-.filters i{
+.filters >form > i{
   width: 15%;
   height: 40px;
   margin-bottom: 10px;
@@ -56,6 +97,25 @@
   text-align: center;
   display: grid;
   place-items: center;
+}
+.filters >form >label {
+  width: 15%;
+  height: 40px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: var(--background);
+  text-align: center;
+  display: grid;
+  place-items: center;
+}
+.break{
+  width: 100%;
+  border:0.1px solid gray ;
+  margin: 1rem ;
+}
+.filters >form >label >input {
+  display: none;
 }
 .mnf{
   padding: 5rem;
@@ -67,12 +127,14 @@
   align-items: center;
   flex-direction: column;
   gap: 2rem;
-  width: calc(100% - 200px);
+  width: 100%;
+  padding-top: 1rem;
 }
 
 
 .movie {
   max-width: 800px;
+  width: 95%;
   border-radius: 5px;
   display: flex;
   box-shadow: 0 5px 20px 10px rgba(0, 0, 0, .2);
@@ -91,7 +153,7 @@ flex: 0 0 45%;
 .movie__content {
   background-color: var(--background);
   flex: 1;
-  padding: 35px 30px;
+  padding: 2rem;
   display: flex;
   flex-direction: column;
 }

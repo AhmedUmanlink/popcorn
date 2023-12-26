@@ -39,7 +39,10 @@ export class MovieService {
     this.filtersForm = this.fb.group({
       start: [''],
       end: [''],
-      selectedCategory: ['']
+      selectedCategory: [''],
+      name : [''],
+      order : [''],
+      field : [''],
     });
   }
 
@@ -127,7 +130,7 @@ export class MovieService {
 
 
 
-  getWatchlist(): Observable<any> {
+  getWatchlist(page=1): Observable<any> {
     const accountId =JSON.parse(sessionStorage.getItem('account')!).id
 
     const url = `${this.env.baseUrl}/account/${accountId}/watchlist/movies`;
@@ -135,6 +138,8 @@ export class MovieService {
     const params = {
       api_key: this.env.api_key,
       session_id: JSON.parse(sessionStorage.getItem('sessionData')!).session_id,
+      page: page,
+
     };
 
     return this.http.get(url, { params });
@@ -145,12 +150,13 @@ export class MovieService {
 
 
 
-  getFavoriteMovies(): Observable<any> {
+  getFavoriteMovies(page=1): Observable<any> {
     const accountId =JSON.parse(sessionStorage.getItem('account')!).id
     const url = `${this.env.baseUrl}/account/${accountId}/favorite/movies`;
     const params = {
       api_key: this.env.api_key,
       session_id: JSON.parse(sessionStorage.getItem('sessionData')!).session_id,
+      page: page,
     };
 
     return this.http.get(url, { params });

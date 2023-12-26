@@ -17,11 +17,11 @@ export class FilmDetailsComponent {
   crew :any
   cast :any
   section:any ={
-    reviews :true,
+    reviews :false,
     trailers :true,
-    companies :true,
-    crew :true,
-    cast :true,
+    companies :false,
+    crew :false,
+    cast :false,
   }
   toggleSection(section:string){
     this.section[section]= !this.section[section]

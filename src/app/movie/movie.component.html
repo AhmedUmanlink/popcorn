@@ -2,9 +2,29 @@
 
 
  <div class="container">
-
-<div class="filters">
-  <span class="filterToggler"><b><i class="fa-solid fa-filter"></i> Filters</b></span>
+  <div class="moviesTYpes">
+    <span class="filterToggler" (click)="toggleFilters()"><b>
+      <i class="fa-solid fa-filter" *ngIf="filtersOpen=='close'"></i> 
+      <i class="fa-solid fa-filter-circle-xmark" *ngIf="filtersOpen=='open'"></i>
+      Filters</b></span>
+  
+    <span *ngIf="movieService.selectedtype=='discover'"  ><b>Discover All</b></span>
+    <span *ngIf="movieService.selectedtype!=='discover'" (click)="movieService.originalMovies=[];movieService.currentPage =1;reload();" >Discover All</span>
+  
+    <span  *ngIf="movieService.selectedtype=='now_playing'"  ><b>Now Playing</b></span>
+    <span *ngIf="movieService.selectedtype!=='now_playing'" (click)="movieService.originalMovies=[];movieService.currentPage =1;loadMovies('now_playing');">Now Playing</span>
+  
+    <span *ngIf="movieService.selectedtype=='top_rated'" ><b>Top Rated</b></span>
+    <span *ngIf="movieService.selectedtype!=='top_rated'" (click)="movieService.originalMovies=[];movieService.currentPage =1;loadMovies('top_rated');">Top Rated</span>
+  
+    <span *ngIf="movieService.selectedtype=='popular'" ><b>Popular</b></span>
+    <span *ngIf="movieService.selectedtype!=='popular'" (click)="movieService.originalMovies=[];movieService.currentPage =1;loadMovies('popular');">Popular</span>
+  
+    <span *ngIf="movieService.selectedtype=='upcoming'" ><b>Upcoming</b></span>
+    <span *ngIf="movieService.selectedtype!=='upcoming'" (click)="movieService.originalMovies=[];movieService.currentPage =1;loadMovies('upcoming');">Upcoming</span>
+  
+  </div>
+<div class="filters"  [ngClass]="filtersOpen">
   
   <form action=""[formGroup]="movieService.filtersForm">
     <input type="text" value="reset filters " readonly (click)="movieService.filtersForm.reset();"><i class="fa-solid fa-rotate-right" (click)="movieService.filtersForm.reset();"></i>
@@ -15,35 +35,42 @@
         <i class="fa-solid fa-rotate-right" (click)="movieService.filtersForm.get('selectedCategory')?.reset();"></i>
         <input  type="date" formControlName="start" ><i class="fa-solid fa-rotate-right" (click)="movieService.filtersForm.get('start')?.reset();"></i>
         <input   type="date" formControlName="end" ><i class="fa-solid fa-rotate-right" (click)="movieService.filtersForm.get('end')?.reset();"></i>
+        <div class="break"></div>
+
+        <select formControlName="field" (change)="scrollup()" >
+          <option  selected  disabled>Select a category</option>
+          <option  value="release_date">release_date</option>
+          <option  value="vote_average">vote_average</option>
+        
+        </select>
+   
+
+        <label *ngIf="movieService.filtersForm.value.order=='desc'">
+          <i class="fa-solid fa-down-long"></i>
+          <input type="radio" formControlName="order" value="asc" >
+        </label>
+        <label *ngIf="!movieService.filtersForm.value.order">
+          <i class="fa-solid fa-up-down"></i>
+          <input type="radio" formControlName="order" value="desc"> 
+        </label>
+        <label *ngIf="movieService.filtersForm.value.order=='asc'">
+          <i class="fa-solid fa-up-long"></i>
+          <input type="radio" formControlName="order" value="desc" > 
+        </label>
+
+  
       </form>
       <br>
-      <hr>
 </div>
 
- <div class="moviesContainer" #moviesContainer infinite-scroll 
+ <div class="moviesContainer" #moviesContainer   infiniteScroll
+ [infiniteScrollDistance]="2"
  (scrolled)="onScroll()">
 <div class="mnf" *ngIf="movieService.originalMovies && movieService.originalMovies.length==0">
   <img src="../../assets/mvnotfnd.png" alt="movies not fund">
 </div>
-<div class="moviesTYpes">
-  <span><b><i class="fa-solid fa-filter"></i> Filters</b></span>
-  <span *ngIf="movieService.selectedtype=='discover'"  ><b>Discover All</b></span>
-  <span *ngIf="movieService.selectedtype!=='discover'" (click)="movieService.originalMovies=[];movieService.currentPage =1;reload();" >Discover All</span>
 
-  <span  *ngIf="movieService.selectedtype=='now_playing'"  ><b>Now Playing</b></span>
-  <span *ngIf="movieService.selectedtype!=='now_playing'" (click)="movieService.originalMovies=[];movieService.currentPage =1;loadMovies('now_playing');">Now Playing</span>
-
-  <span *ngIf="movieService.selectedtype=='top_rated'" ><b>Top Rated</b></span>
-  <span *ngIf="movieService.selectedtype!=='top_rated'" (click)="movieService.originalMovies=[];movieService.currentPage =1;loadMovies('top_rated');">Top Rated</span>
-
-  <span *ngIf="movieService.selectedtype=='popular'" ><b>Popular</b></span>
-  <span *ngIf="movieService.selectedtype!=='popular'" (click)="movieService.originalMovies=[];movieService.currentPage =1;loadMovies('popular');">Popular</span>
-
-  <span *ngIf="movieService.selectedtype=='upcoming'" ><b>Upcoming</b></span>
-  <span *ngIf="movieService.selectedtype!=='upcoming'" (click)="movieService.originalMovies=[];movieService.currentPage =1;loadMovies('upcoming');">Upcoming</span>
-
-</div>
-<div class="movie_card" [id]="movie.id" *ngFor="let movie of movieService.originalMovies | movieFilter: movieService.filtersForm.value.selectedCategory :movieService.filtersForm.value.start :movieService.filtersForm.value.end">    <figure class="movie">
+<div class="movie_card" [id]="movie.id" *ngFor="let movie of movieService.originalMovies | movieFilter : movieService.filtersForm.value ">    <figure class="movie">
       <div class="movie__hero">
         <img [src]="'https://image.tmdb.org/t/p/w500/' + movie.poster_path" [alt]="movie.title" class="movie__img">
       </div>
