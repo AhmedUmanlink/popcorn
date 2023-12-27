@@ -11,7 +11,7 @@
       <a [routerLink]="['/movie']" routerLinkActive="active-link" ><i class="fa-solid fa-magnifying-glass"></i> Discover </a>
       <a [routerLink]="['/MyFavoriteMovies']"  routerLinkActive="active-link"><i class="fa-regular fa-heart"></i> Favorites</a>
       <a [routerLink]="['/MyWatchList']"  routerLinkActive="active-link"><i class="fa-solid fa-list-ol"></i> Watch List</a>
-    
+    <span (click)="logout()"><i class="fa-solid fa-arrow-right-from-bracket"></i> Logout</span>
     </div>
     <div class="searchBar" *ngIf="canSerach()">
       <form class="form" [formGroup]="movieService.searchQueryForm">

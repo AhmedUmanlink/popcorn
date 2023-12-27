@@ -56,6 +56,15 @@ gap: 1rem;
     color: var(--textP);
 
   }
+
+  .navigation >span {
+    cursor: pointer;
+    color: var(--textP);
+    background-color: var(--textS);
+    padding: .5rem 1rem;
+    border-radius: 0.5rem;
+
+  }
   .active-link {
     
     color: var(--textS) !important;

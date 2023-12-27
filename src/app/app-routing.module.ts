@@ -5,6 +5,7 @@ import { MovieComponent } from './movie/movie.component';
 import { FavoritesComponent } from './favorites/favorites.component';
 import { FilmDetailsComponent } from './film-details/film-details.component';
 import { WatchListComponent } from './watch-list/watch-list.component';
+import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -15,21 +16,19 @@ const routes: Routes = [
   {
     path : 'movie',
     component : MovieComponent,
-    children :[
-    
-    ]
+    canActivate  : [AuthGuard]
   },
   {
     path : 'MyFavoriteMovies',
-    component : FavoritesComponent,
+    component : FavoritesComponent,canActivate  : [AuthGuard]
    },
    {
     path : 'MyWatchList',
-    component : WatchListComponent,
+    component : WatchListComponent,canActivate  : [AuthGuard]
    },
    {
     path : 'movie-details/:id',
-    component : FilmDetailsComponent,
+    component : FilmDetailsComponent,canActivate  : [AuthGuard]
    },
 ];
 

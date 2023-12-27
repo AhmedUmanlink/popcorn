@@ -46,7 +46,7 @@ export class MovieFilterPipe implements PipeTransform {
           fieldA= new Date(a[field]).getTime();
           fieldB= new Date(b[field]).getTime();
       }
-      if (order === 'desc')
+      if (order === 'asc')
         return fieldA - fieldB;
       else
         return fieldB - fieldA;

@@ -16,6 +16,7 @@ import { FilmDetailsComponent } from './film-details/film-details.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LightgalleryModule } from 'lightgallery/angular';
 import { WatchListComponent } from './watch-list/watch-list.component';
+import { AuthGuard } from './guards/auth.guard';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,7 @@ import { WatchListComponent } from './watch-list/watch-list.component';
 
 
   ],
-  providers: [MovieFilterPipe,  {
+  providers: [AuthGuard,MovieFilterPipe,  {
     provide: HTTP_INTERCEPTORS,
     useClass: Interceptor,
     multi: true,

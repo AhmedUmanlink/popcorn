@@ -81,7 +81,7 @@ export class MovieComponent implements OnInit {
   reload(){
     this.movieService.getMovies(this.movieService.currentPage).subscribe(
       (data) => {
-        
+        this.movieService.selectedtype='discover'
         this.movieService.originalMovies = data.results;
       
       },

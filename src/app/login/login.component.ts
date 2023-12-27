@@ -49,7 +49,7 @@ export class LoginComponent implements OnInit {
                     
                   }
                 )
-                 this.router.navigate(['movie'])
+                setTimeout(()=> this.router.navigate(['movie']),1000)
               },
               (sessionError) => {
                 console.error('Session creation error:', sessionError);

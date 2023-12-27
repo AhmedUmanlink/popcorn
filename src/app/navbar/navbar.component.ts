@@ -1,7 +1,8 @@
-import { Component, Inject, Renderer2 } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { MovieService } from '../services/movie.service';
 import { Router } from '@angular/router';
 import { DOCUMENT } from '@angular/common';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -9,12 +10,12 @@ import { DOCUMENT } from '@angular/common';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent {
-constructor(protected movieService: MovieService,private router:Router,private renderer: Renderer2,
+constructor(protected movieService: MovieService,private router:Router,private auth : AuthService,
   @Inject(DOCUMENT) private document: Document
   ){}
 
 canShow(){
-  return this.router.url !== "/login"
+  return this.router.url !== "/login" 
 }
 
 canSerach(){
@@ -79,5 +80,7 @@ switchTheme(){
     root.setProperty('--text4', '#b1b0ac');
   }
 }
-
+logout(){
+  this.auth.logout()
+}
 }

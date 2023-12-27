@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ENV } from '../env';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -9,7 +10,7 @@ import { ENV } from '../env';
 export class AuthService {
   private env = ENV;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,private router :Router) {}
 
   // Step 1: Get a request token
   getRequestToken(): Observable<any> {
@@ -49,5 +50,17 @@ export class AuthService {
     };
   
     return this.http.get(url, { params });
+  }
+
+  logout(){
+    sessionStorage.clear()
+    this.router.navigate(['/login'])
+  }
+
+  authenticated ()
+  {
+    if (sessionStorage.getItem('loginData') && sessionStorage.getItem('account') &&sessionStorage.getItem('sessionData')  )
+    return true
+  else return false 
   }
 }
