@@ -55,13 +55,15 @@ export class MovieComponent implements OnInit {
 
 
   loadMovies(type: string) {
+    if(type==='discover')
+    this.reload()
+  else
     this.movieService.getMoviesByFilters(type, this.movieService.currentPage).subscribe(
       (data: any) => {
         console.log(data);
         
         this.movieService.selectedtype = type;
-        if (this.movieService.currentPage == 1) this.movieService.originalMovies = data.results;
-        else this.movieService.originalMovies.push(...data.results);
+        this.movieService.originalMovies.push(...data.results);
 
         this.movieService.currentPage++;
       },
@@ -82,7 +84,7 @@ export class MovieComponent implements OnInit {
     this.movieService.getMovies(this.movieService.currentPage).subscribe(
       (data) => {
         this.movieService.selectedtype='discover'
-        this.movieService.originalMovies = data.results;
+        this.movieService.originalMovies.push(...data.results);
       
       },
       (error) => {

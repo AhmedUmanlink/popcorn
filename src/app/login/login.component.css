@@ -27,6 +27,7 @@
     justify-content: center;
     align-items: center;
     border-radius: 0.3rem;
+    z-index: 1;
 }
 
 .login-fieldset {
@@ -98,3 +99,4 @@ width: 80%;
     font-size: 0.8em;
     margin-top: 4px;
   }
+

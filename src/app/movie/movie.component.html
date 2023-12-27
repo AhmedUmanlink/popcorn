@@ -9,19 +9,19 @@
       Filters</b></span>
   
     <span *ngIf="movieService.selectedtype=='discover'"  ><b>Discover All</b></span>
-    <span *ngIf="movieService.selectedtype!=='discover'" (click)="movieService.originalMovies=[];movieService.currentPage =1;reload();" >Discover All</span>
+    <span *ngIf="movieService.selectedtype!=='discover'" (click)="movieService.filtersForm.reset();movieService.originalMovies=[];movieService.currentPage =1;loadMovies('discover');" >Discover All</span>
   
     <span  *ngIf="movieService.selectedtype=='now_playing'"  ><b>Now Playing</b></span>
-    <span *ngIf="movieService.selectedtype!=='now_playing'" (click)="movieService.originalMovies=[];movieService.currentPage =1;loadMovies('now_playing');">Now Playing</span>
+    <span *ngIf="movieService.selectedtype!=='now_playing'" (click)="movieService.filtersForm.reset();movieService.originalMovies=[];movieService.currentPage =1;loadMovies('now_playing');">Now Playing</span>
   
     <span *ngIf="movieService.selectedtype=='top_rated'" ><b>Top Rated</b></span>
-    <span *ngIf="movieService.selectedtype!=='top_rated'" (click)="movieService.originalMovies=[];movieService.currentPage =1;loadMovies('top_rated');">Top Rated</span>
+    <span *ngIf="movieService.selectedtype!=='top_rated'" (click)="movieService.filtersForm.reset();movieService.originalMovies=[];movieService.currentPage =1;loadMovies('top_rated');">Top Rated</span>
   
     <span *ngIf="movieService.selectedtype=='popular'" ><b>Popular</b></span>
-    <span *ngIf="movieService.selectedtype!=='popular'" (click)="movieService.originalMovies=[];movieService.currentPage =1;loadMovies('popular');">Popular</span>
+    <span *ngIf="movieService.selectedtype!=='popular'" (click)="movieService.filtersForm.reset();movieService.originalMovies=[];movieService.currentPage =1;loadMovies('popular');">Popular</span>
   
     <span *ngIf="movieService.selectedtype=='upcoming'" ><b>Upcoming</b></span>
-    <span *ngIf="movieService.selectedtype!=='upcoming'" (click)="movieService.originalMovies=[];movieService.currentPage =1;loadMovies('upcoming');">Upcoming</span>
+    <span *ngIf="movieService.selectedtype!=='upcoming'" (click)="movieService.filtersForm.reset();movieService.originalMovies=[];movieService.currentPage =1;loadMovies('upcoming');">Upcoming</span>
   
   </div>
 <div class="filters"  [ngClass]="filtersOpen">
@@ -41,6 +41,7 @@
           <option  selected  disabled>Select a category</option>
           <option  value="release_date">release_date</option>
           <option  value="vote_average">vote_average</option>
+          <option  value="popularity">popularity</option>
         
         </select>
    
@@ -96,10 +97,21 @@
       </div>
       <div class="movie__price">Rating: {{ movie.vote_average }}</div>
     </figure>
+    
   </div>
-
-      
+  
+<div class="wrapper">
+  <span>😏</span>
+  <span>😪</span>
+  <span>🙄</span>
+  <span>😴</span>
+  <span>😛</span>
+  <span>🤯</span>
+  <span>🤩</span>
+  <span>😈</span>
+  <span>😁</span>
+  <span>😱</span>
+</div>    
  </div>
 
 </div>
-
