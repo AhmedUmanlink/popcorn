@@ -10,7 +10,7 @@ export class MovieFilterPipe implements PipeTransform {
       return movies;
     }
 
-    const filteredMovies = movies.filter((movie) => {
+      const filteredMovies = movies.filter((movie) => {
       const genreFilter = !filters.selectedCategory || movie.genre_ids.includes(parseInt(filters.selectedCategory));
       const startFilter = !filters.startDate || new Date(movie.release_date) >= new Date(filters.startDate);
       const endFilter = !filters.endDate || new Date(movie.release_date) <= new Date(filters.endDate);

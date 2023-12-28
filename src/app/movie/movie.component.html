@@ -101,16 +101,12 @@
   </div>
   
 <div class="wrapper">
-  <span>😏</span>
-  <span>😪</span>
-  <span>🙄</span>
-  <span>😴</span>
-  <span>😛</span>
-  <span>🤯</span>
-  <span>🤩</span>
-  <span>😈</span>
-  <span>😁</span>
-  <span>😱</span>
+<!-- app.component.html -->
+<ng-container *ngFor="let emoji of currentEmojis; let i = index">
+
+  <span >{{ emoji }}</span>
+</ng-container>
+
 </div>    
  </div>
 

@@ -23,6 +23,8 @@ export class MovieComponent implements OnInit {
 {}
 
   ngOnInit() {
+    this.updateEmojis(); // Initial call
+    setInterval(() => this.updateEmojis(), 10000);
     this.reload();
     this.movieService.getFavoriteMovies().subscribe(
       (res)=>{
@@ -146,5 +148,16 @@ addMovieToWatchList(movieId:any,isWatched:boolean){
 
   toggleFilters() {
     this.filtersOpen = this.filtersOpen=='open' ? 'close' :'open';
+  }
+  emojis: string[] = ['😏', '😪', '🙄', '😴', '😛', '🤯', '🤩', '😈', '😁', '😱', '😎', '😆', '😅', '😍', '😋', '😇', '😂', '🤣', '😉', '😌', '😜', '😊', '🥰', '😬', '🤔', '😮', '😲', '🤫', '🥳', '😢', '😭', '😤', '😠', '😡', '😓', '😖', '😞', '😟', '😩', '😫', '😨', '😧', '😦', '😮‍💨', '😷', '🤒', '🤕', '🤢', '🤮', '🤧', '🥺', '😪', '😴', '🥴', '🤤', '😈', '👿', '💀', '☠️', '💩', '🤡', '👹', '👺', '👻', '👽', '👾', '🤖', '😺', '😸', '😻', '😽', '🙀', '😿', '😹', '😾', '🙈', '🙉', '🙊'];
+
+  numberOfSpans = 10;
+  currentEmojis: string[] = [];
+
+  updateEmojis() {
+    this.currentEmojis = Array.from({ length: this.numberOfSpans }, () => {
+      const randomIndex = Math.floor(Math.random() * this.emojis.length);
+      return this.emojis[randomIndex];
+    });
   }
 }
