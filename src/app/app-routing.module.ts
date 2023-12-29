@@ -6,11 +6,18 @@ import { FavoritesComponent } from './favorites/favorites.component';
 import { FilmDetailsComponent } from './film-details/film-details.component';
 import { WatchListComponent } from './watch-list/watch-list.component';
 import { AuthGuard } from './guards/auth.guard';
+import { AppComponent } from './app.component';
 
 const routes: Routes = [
   {
     path : 'login',
     component : LoginComponent
+  },
+  {
+    path : '',
+    component : 
+    LoginComponent,
+   
   },
   
   {

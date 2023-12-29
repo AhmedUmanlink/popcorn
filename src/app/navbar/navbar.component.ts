@@ -15,7 +15,7 @@ constructor(protected movieService: MovieService,private router:Router,private a
   ){}
 
 canShow(){
-  return this.router.url !== "/login" 
+  return this.router.url !== "/login"  &&  this.router.url !== "/" 
 }
 
 canSerach(){

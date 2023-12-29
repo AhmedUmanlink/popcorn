@@ -27,9 +27,9 @@
 <div class="filters"  [ngClass]="filtersOpen">
   
   <form action=""[formGroup]="movieService.filtersForm">
-    <input type="text" value="reset filters " readonly (click)="movieService.filtersForm.reset();"><i class="fa-solid fa-rotate-right" (click)="movieService.filtersForm.reset();"></i>
+    <input type="text" value="Reset filters " readonly (click)="movieService.filtersForm.reset();"><i class="fa-solid fa-rotate-right" (click)="movieService.filtersForm.reset();"></i>
         <select formControlName="selectedCategory" (change)="scrollup()" >
-          <option  selected  disabled>Select a category</option>
+          <option value="" selected  disabled>Category</option>
           <option *ngFor="let genre of movieService.genres" [value]="genre.id">{{ genre.name }}</option>
         </select>
         <i class="fa-solid fa-rotate-right" (click)="movieService.filtersForm.get('selectedCategory')?.reset();"></i>
@@ -38,7 +38,7 @@
         <div class="break"></div>
 
         <select formControlName="field" (change)="scrollup()" >
-          <option  selected  disabled>Select a category</option>
+          <option value="" selected  disabled>Sort by </option>
           <option  value="release_date">release_date</option>
           <option  value="vote_average">vote_average</option>
           <option  value="popularity">popularity</option>
